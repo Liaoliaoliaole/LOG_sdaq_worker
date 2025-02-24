@@ -1,0 +1,36 @@
+#/usr/bin/env bash
+#
+# Bash completion script for SDAQ_prog
+#
+_SDAQ_prog()
+{
+	local cur ifs_names
+
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+
+	#Network interfaces names
+	ifs_names=$(ls "/sys/class/net")
+	# The options we'll complete.
+	default_opts="-V -h -l -i -s"
+
+	# Complete the options
+	case "${COMP_CWORD}" in
+		1)
+			COMPREPLY=( $(compgen -W "${ifs_names} ${default_opts}" -- ${cur}) )
+			;;
+		2)
+			COMPREPLY=( $(compgen -W "SDAQ_address ${default_opts}" -- ${cur}) )
+			;;
+		3)
+			COMPREPLY=()
+			;;
+		*)
+			COMPREPLY=( $(compgen -W "${default_opts}" -- ${cur}) )
+			;;
+	esac
+    return 0
+}
+
+# Bind completion to SDAQ_psim
+complete -o default -F _SDAQ_prog SDAQ_prog

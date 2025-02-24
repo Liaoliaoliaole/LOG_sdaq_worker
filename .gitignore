@@ -5,6 +5,8 @@
 **/build/
 **/work/
 src/SDAQ_prog/test_hex
+!src/autocomplete/
+!src/autocomplete/*
 #.gitignore
 
 
